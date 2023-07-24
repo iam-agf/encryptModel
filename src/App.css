@@ -1,16 +1,36 @@
-.App {
+body {
+  background-color: black;
   text-align: center;
-}
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+  .rsa{
+    color: grey;
+    input {
+      width: 20vw;
+      height: 20vh;
+      word-wrap: break-word;
+      word-break: break-all;
+    }
   }
+
+  .decrypter{
+    margin: 10vh 0;
+  }
+
+}
+textarea {
+  width: 20vw;
+  height: 20vh;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.outputEncrypted{
+  margin: auto;
+  word-wrap: break-word;
+  word-break: break-all;
+  width: 40vw;
+  height: 20vh;
+
 }
 
 .App-header {
