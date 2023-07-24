@@ -1,46 +1,65 @@
-# Getting Started with Create React App
+# Encrypt / Decrypt message for messages
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Install 
 
-## Available Scripts
+#### Website 
+To run this model by yourself first run the website. 
 
-In the project directory, you can run:
+```bash
+npm install
+npm start
+```
 
-### `npm start`
+This will run the encrypte/decrypt website in [localhost:3000](http://localhost:3000/).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<img width="900" alt="image" src="https://github.com/iam-agf/encryptModel/assets/61362029/73ac546a-2aa9-4989-bdf1-076273cdb0dc">
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+#### Realm
 
-### `npm test`
+It's assumed you can run your own node. To add this realm to your local node run this command. Don't forget to add your address in `YOURADDRESSHERE`.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+gnokey maketx addpkg --pkgpath "gno.land/r/demo/simulation" \
+    --pkgdir "examples/gno.land/r/demo/simulation" \
+    --deposit 100000000ugnot --gas-fee 1000000ugnot \
+    --gas-wanted 2000000 --broadcast --chainid dev --remote localhost:26657 \
+    YOURADDRESSHERE
+```
 
-### `npm run build`
+This will allow you to see the website for the realm. To follow these instructions access to the help section for the realm.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<img width="900" alt="image" src="https://github.com/iam-agf/encryptModel/assets/61362029/b03ea988-5b5e-44ff-a1af-7e46aadb44d0">
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Model simulation
 
-### `npm run eject`
+First of all this is a dummy model so must be assumed it's a rudimentary simulation of what the Shiken project would do behind stages when interacting with it for the examinator and the candidate. The connection between the chain and the website isn't implemented because the intention is to make this as minimal as possible.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### The process simulated
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### Examinator side
+1.- Enter the website and generate a pair of private key and public key. **Store the private key** and copy the public key (this last one will be sent on chain). This is the equivalent to the job the website will do each time someone requests to make a new exam. Don't refresh the website if you want to store the 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+<img width="900" alt="Screenshot 2023-07-23 at 19 12 44" src="https://github.com/iam-agf/encryptModel/assets/61362029/27f48c47-7a26-4001-a736-aa3cd53e848d">
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+2.- Make a tx containing as public key the public key you copied. This would be the equivalent to what the browser would do before asking you to sign when creating a new exam.
+*For this use the path for the realm and enter help
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<img width="900" alt="image" src="https://github.com/iam-agf/encryptModel/assets/61362029/0f5197f9-1336-4ef6-ac45-be755108effb">
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+3.- Now this will store on chain the public key. In the project this would be equivalent to the candidates being able to call the exam and get your public key so can encrypt their answers when sending it. Since you saved the private key you can decrypt them.
+
+<img width="1412" alt="image" src="https://github.com/iam-agf/encryptModel/assets/61362029/8836386a-1fe1-4654-bf6d-824ca9e43f89">
+
+#### Candidate side
+
+1.- Copy the public key and use it to encrypt the answer. In the project this is equivalent to the website encrypting the answer of the candidate using the public key obtained by calling the exam from the chain. 
+
+Notice the project mentiones a double encryption because of long answers, so the website would also generate a symmetric key and that would be the RSA-encrypted message and the answer would be encrypted using that answer but that would be very long for a dummy model, so it's reduced to only one encryption for the sampling.
+
+<img width="651" alt="image" src="https://github.com/iam-agf/encryptModel/assets/61362029/05580c8e-44b1-41ea-8753-ded4a1799cae">
+
+2.- The previous step will allow the evaluator to decrypt your answer using the private key he previously saved. In the project the website would decrypt the symmetric key and use the result to decrypt the answer.
+
+<img width="514" alt="Screenshot 2023-07-23 at 20 08 31" src="https://github.com/iam-agf/encryptModel/assets/61362029/3acfed27-4a7e-4d28-adeb-ab7abecc5a6c">
