@@ -16,7 +16,7 @@ This will run the encrypte/decrypt website in [localhost:3000](http://localhost:
 
 #### Realm
 
-It's assumed you can run your own node. To add this realm to your local node run this command. Don't forget to add your address in `YOURADDRESSHERE`.
+It's assumed you know how to run your own node. To add this realm to your local node first copy the file `realm/simulation.gno` in this repository into `/gno/examples/gno.land/r/demo/simulation` (assuming `/gno` is a clone of the repository of Gno.) and then run this command (Don't forget to add your address in `YOURADDRESSHERE`):
 
 ```bash
 gnokey maketx addpkg --pkgpath "gno.land/r/demo/simulation" \
