@@ -7,6 +7,7 @@ type EncrypterProps = {
 };
 
 const Encrypter: React.FC<EncrypterProps> = ({ publicKey }) => {
+  const [pub, setPub] = useState<forge.pki.rsa.PublicKey>() // Private key decrypter
   const [encryptedMessage, setEncryptedMessage] = useState<string>()
 
   function encryptMessage(message:string) {
@@ -16,6 +17,12 @@ const Encrypter: React.FC<EncrypterProps> = ({ publicKey }) => {
   return (
     <div className="rsa">
       <h1>Encrypter</h1>
+      <h3>Public key</h3>
+      <textarea onChange={(e) => {
+        var message: string = e.target.value
+        if (message.length != 0) setPub(forge.pki.publicKeyFromPem(e.target.value))
+      }} />
+      <h3>Message to encrypt</h3>
       <textarea onChange={(e) => {
         var message: string = e.target.value
         if (message.length != 0) encryptMessage(e.target.value)
